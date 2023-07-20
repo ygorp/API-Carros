@@ -1,4 +1,4 @@
-from flask import Flask, make_response, jsonify
+from flask import Flask, make_response, jsonify, request
 from bd import Carros
 
 
@@ -11,7 +11,18 @@ def get_carros():
             Carros
         )
     )
+    
 
+
+@app.route('/carros', methods=['POST'])
+def create_carro():
+    carro = request.json
+    Carros.append(carro)
+    return make_response(
+        jsonify(
+            carro
+        )
+    )
 
 
 app.run()
